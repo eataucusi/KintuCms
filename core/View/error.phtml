@@ -1,0 +1,29 @@
+<div class="error_titulo">
+    <img src="publico/core/img/alerta.png" alt="alerta de kintucms">
+    ¡Oops ha ocurrido un error!
+</div>
+<?php if (Config::$app_prod) : ?>
+    <div class="error_cuerpo">
+        <fieldset>
+            <legend>Resumen</legend>
+            <p><?php echo $resumen ?></p>
+        </fieldset>
+        <fieldset>
+            <legend>Detalle de error</legend>
+            <table>
+                <tr>
+                    <td><span>Url solicitada</span></td>
+                    <td><?php echo RUTA . ADMIN . htmlspecialchars(Uri::$url) ?></td>
+                </tr>
+                <tr>
+                    <td><span>Información</span></td>
+                    <td><?php echo 1 ?></td>
+                </tr>
+            </table>
+        </fieldset>
+    </div>
+<?php else: ?>
+    <div class="error_cuerpo">
+        <?php echo Config::$app_error ?>
+    </div>
+<?php endif; ?>
