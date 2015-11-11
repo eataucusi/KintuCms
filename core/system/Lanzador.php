@@ -13,7 +13,7 @@
  * 
  * 
  */
-class Route {
+class Lanzador {
 
     /**
      * Función que incluye el controlador y ejecuta el método con sus 
@@ -38,10 +38,26 @@ class Route {
         call_user_func_array(array($controlador, Uri::$method), Uri::$args);
     }
 
-    public static function error($mensaje, $detalle) {
-        require_once KC_RAIZ . 'core/Controller/error.php';
+    public function resolver() {
+        Uri::segmentar();
+        $_ruta = KC_EXE . 'Controladores/' . Uri::$contro . '.php';
+        if (!is_readable($_ruta)) {
+            $this->error('k', 'l');
+        }
+        require_once $_ruta;
+        $_clase = Uri::$contro . 'Ctld';
+        if (!class_exists($_clase, FALSE)) {
+            $this->error('k', 'm');
+        }
+        $_contro = new $_clase();
+        if (!is_callable(array($_contro, Uri::$metodo))) {
+            $this->error('j', 'k');
+        }
+        define('KC_VISTA', KC_EXE . 'Vistas/');
+        call_user_func_array(array($_contro, Uri::$metodo), Uri::$args);
+    }
 
-
+    public function error($mensaje, $detalle) {
         exit();
     }
 

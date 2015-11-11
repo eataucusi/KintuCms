@@ -17,15 +17,15 @@ define('KC_RAIZ', realpath(__DIR__) . '/');
  */
 define('KC_EXE', KC_RAIZ . 'app/');
 
-if (!is_readable(KC_RAIZ . 'core/system/Peticion.php')) {
-    die('Archivo del sistema no encontrado: core/system/Peticion.php');
+if (!is_readable(KC_RAIZ . 'core/system/Uri.php')) {
+    die('Archivo del sistema no encontrado: core/system/Uri.php');
 }
-require_once KC_RAIZ . 'core/system/Peticion.php';
+require_once KC_RAIZ . 'core/system/Uri.php';
 
-if (!is_readable(KC_RAIZ . 'core/system/Controller.php')) {
-    die('Archivo del sistema no encontrado: core/system/Controller.php');
+if (!is_readable(KC_RAIZ . 'core/system/Controlador.php')) {
+    die('Archivo del sistema no encontrado: core/system/Controlador.php');
 }
-require_once KC_RAIZ . 'core/system/Controller.php';
+require_once KC_RAIZ . 'core/system/Controlador.php';
 
 if (!is_readable(KC_RAIZ . 'core/system/Vista.php')) {
     die('Archivo del sistema no encontrado: core/system/Vista.php');
@@ -42,11 +42,14 @@ if (!is_readable(KC_RAIZ . 'core/system/Lanzador.php')) {
 }
 require_once KC_RAIZ . 'core/system/Lanzador.php';
 
-if (!Config::$app_prod) {
+if (!Config::$produccion) {
     ini_set('error_reporting', E_ALL | E_NOTICE | E_STRICT);
     ini_set('display_errors', '1');
     ini_set('track_errors', 'On');
 } else {
     ini_set('display_errors', '0');
 }
-Route::ejecutar();
+
+$objLanz = new Lanzador();
+$objLanz->resolver();
+

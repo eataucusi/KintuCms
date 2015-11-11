@@ -1,11 +1,11 @@
 <?php
 
-class View {
+class Vista {
 
     /**
      * @var string Título de la página 
      */
-    public $title;
+    public $titulo;
 
     /**
      * @var string Meta descripción de la página
@@ -13,12 +13,12 @@ class View {
     public $meta;
 
     public function __construct() {
-        $this->title = Config::$app_name;
-        $this->meta = Config::$app_meta;
+        $this->titulo = Config::$titulo;
+        $this->meta = Config::$meta;
     }
 
-    public function render($vista, $data = array()) {
-        $ruta = KC_VIEW . $vista . '.phtml';
+    public function generar($vista, $data = array()) {
+        $ruta = KC_VISTA . $vista . '.phtml';
         if (!is_readable($ruta)) {
             Route::error('Vista ' . $vista . ' no encontrada', 'No existe el archivo ' . $ruta);
         }

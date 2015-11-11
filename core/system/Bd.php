@@ -15,7 +15,7 @@
  * 
  * Gestiona el acceso a base de datos MySQL, utiliza el patrÃ³n singleton
  */
-class Db {
+class Bd {
 
     /**
      * Ãšnica instancia de esta clase.

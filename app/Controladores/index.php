@@ -1,13 +1,13 @@
 <?php
 
-class indexController extends Controller {
+class indexCtld extends Controlador {
 
     public function __construct() {
         parent::__construct();
     }
 
     public function index() {
-        $this->view->render('index');
+        $this->vista->generar('index');
     }
 
 }

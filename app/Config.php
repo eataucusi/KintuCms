@@ -20,27 +20,27 @@ class Config {
      * @var string Url a través del cual se accede a la aplicación, ejemplo
      * http://dominio.com/
      */
-    public static $app_url = 'http://localhost/kintucms/';
+    public static $url = 'http://localhost/kintucms/';
 
     /**
-     * @var string Nombre de la aplicación
+     * @var string Título de la aplicación
      */
-    public static $app_name = 'Sistema Gestor de Contenidos KintuCms';
+    public static $titulo = 'Sistema Gestor de Contenidos KintuCms';
 
     /**
      * @var string Dominio de la aplicación, ejemplo www.tusitio.com
      */
-    public static $app_domain = 'Www.KintuCms.Org';
+    public static $dominio = 'Www.KintuCms.Org';
 
     /**
      * @var string Meta descripción de la aplicación
      */
-    public static $app_meta = 'Descripcion';
+    public static $meta = 'Descripcion';
 
     /**
-     * @var string Meta descripción de la aplicación
+     * @var string Mensaje de error para recursos inexistentes
      */
-    public static $app_error = 'Lo sentimos pero la página que buscas no existe o ya no se encuentra aquí.';
+    public static $error = 'Lo sentimos pero la página que buscas no existe o ya no se encuentra aquí.';
 
     /**
      * @var integer Número de registros por página
@@ -51,19 +51,19 @@ class Config {
      * @var string Cadena obtenida aleatoriamente para la generación de
      * contraseñas y otros datos de seguridad
      */
-    public static $app_hash = '3215478y';
+    public static $hash = '3215478y';
 
     /**
      * @var string Identificador de la aplicación, para tener varios proyectos
      * KintuCms en un servidor, no mayor de 3 caracteres 
      */
-    public static $app_id = 'jkl';
+    public static $id = 'jkl';
 
     /**
      * @var bool La aplicación ¿está en producción?, muestra u oculta los
      * errores de php, si es FALSE muestra errores
      */
-    public static $app_prod = FALSE;
+    public static $produccion = FALSE;
 
     /**
      * Configuración del acceso a base de datos MySQL
@@ -72,22 +72,22 @@ class Config {
     /**
      * @var string Servidor de la base de datos MySQL, generalmente localhost
      */
-    public static $db_host = '';
+    public static $host_bd = '';
 
     /**
      * @var string Nombre de usuario de la base de datos MySQL 
      */
-    public static $db_user = '';
+    public static $user_bd = '';
 
     /**
      * @var string Contraseña del usuario de la base de datos MySQL 
      */
-    public static $db_pass = '';
+    public static $pass_bd = '';
 
     /**
      * @var string Nombre de la base de datos MySQL 
      */
-    public static $db_name = '';
-
+    public static $name_bd = '';
     public static $section = array('home', 'about', 'contact', 'more');
+
 }
