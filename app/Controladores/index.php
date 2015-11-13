@@ -10,4 +10,9 @@ class indexCtld extends Controlador {
         $this->vista->generar('index');
     }
 
+    public function Saludo($nombre) {
+       echo $nombre;
+        
+    }
+
 }

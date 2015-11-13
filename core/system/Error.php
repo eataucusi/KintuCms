@@ -18,12 +18,12 @@
 class Error {
 
     /**
-     * Registra los errores en archivos organizados por fechas. 
-     * @param string $mensaje descripción del error
+     * 
+     * @param type $mensaje
      */
     public static function escribir($mensaje) {
         $_nombre = date('d-m-Y') . '_' . substr(md5(date('dYm')), 22) . '.txt';
-        $gestor = fopen(RAIZ . DIR_LOG . SD . $_nombre, 'a');
+        $gestor = fopen(KC_RAIZ . 'app/log/' . $_nombre, 'a');
         if ($gestor) {
             fwrite($gestor, date('H:i:s') . '#;');
             fwrite($gestor, RUTA . ADMIN . Uri::$url . '#;');
@@ -59,6 +59,11 @@ class Error {
         } else {
             self::manejo($codigo . ': Se ha producido un error de MySQL', $detalle);
         }
+    }
+
+    public static function oops($nombre) {
+        echo $nombre;
+        exit();
     }
 
 }

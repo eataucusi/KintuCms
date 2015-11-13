@@ -1,54 +1,55 @@
 <?php
 
 /**
- * Archivo Bd.php
+ * Archivo core/system/Bd.php
  * 
- * Este archivo define la clase Bd.
- * 
- * @license http://licencia licencia
+ * @copyright (c) 2015, KintuCms
  * @author Edison Ataucusi R. <eataucusi@gmail.com>
- * @version 1.0 19/06/2015 21:48:00 
+ * @license http://creativecommons.org/licenses/by-nc-sa/4.0/ CC BY-NC-SA 4.0
  */
 
 /**
- * Clase Bd
+ * Gestiona las conexiones a base de datos MySQL
  * 
- * Gestiona el acceso a base de datos MySQL, utiliza el patrÃ³n singleton
+ * Esta clase proporciona atributos y métodos que ayudan a recuperar
+ * información de las conexiones y resultados de las consultas a base de datos
+ * MySQL, esta clase esta implementada con el patrón de diseño singleton
  */
 class Bd {
 
     /**
-     * Ãšnica instancia de esta clase.
-     * @var Bd 
+     * @var Bd Instancia de la clase Bd
      */
     private static $_instancia;
 
     /**
-     * Arreglo con parÃ¡metros de una consulta.
-     * @var array() 
+     * @var array Parámetros de la consulta
      */
-    private $_parametros;
+    private $_params;
 
     /**
-     * InstrucciÃ³n SQL a ejecutar
-     * @var string
+     * @var string Consulta SQL 
      */
     private $_sql;
 
     /**
-     * Conector a un servidor de bases de datos MySQL.
-     * @var mysqli 
+     * @var mysqli Extensión que permite acceder a la funcionalidad de MySQL
      */
     private $_mysqli;
 
     /**
-     * Resultados de luna consulta a MySQL.
-     * @var mysqli_result 
+     * @var mysqli_result Resultados obtenidos a partir de una consulta
      */
     private $_result;
 
-    private function __construct($servidor, $usuaio, $clave, $nombre_bd) {
-        $this->_mysqli = new mysqli($servidor, $usuaio, $clave, $nombre_bd);
+    /**
+     * Constructor de la clase Bd
+     * 
+     * Método que intenta crear una instancia de mysqli y establece el juego de
+     * caracteres UTF-8, en caso de error invoca al gestor de errores 
+     */
+    private function __construct() {
+        $this->_mysqli = new mysqli(Config::$host_bd, Config::$user_bd, Config::$pass_bd, Config::$name_bd);
         if (!$this->_mysqli->connect_error) {
             $this->_mysqli->set_charset('utf8');
         } else {
@@ -56,13 +57,30 @@ class Bd {
         }
     }
 
+    /**
+     * Crea una única instancia de la clase Bd
+     * 
+     * Método que verifica si existe una instancia de esta clase, si existe
+     * retorna esa instancia caso contrario crea una instancia
+     * @return Bd Instancia de la clase Bd
+     */
     public static function getIntancia() {
         if (!self::$_instancia) {
-            self::$_instancia = new self(BD_HOST, BD_USER, BD_PASS, BD_NAME);
+            self::$_instancia = new self();
         }
         return self::$_instancia;
     }
 
+    /**
+     * Verifica datos de conexión a base de datos
+     * 
+     * Método que intenta crear una instancia de mysqli
+     * @param string $servidor Servidor de la base de datos MySQL
+     * @param string $usuaio Nombre de usuario de la base de datos
+     * @param string $clave Contraseña del usuario de la base de datos
+     * @param string $nombre_bd Nombre de la base de datos
+     * @return boolean TRUE en caso de éxito y FALSE caso contrario 
+     */
     public static function test($servidor, $usuaio, $clave, $nombre_bd) {
         $_cn = new mysqli($servidor, $usuaio, $clave, $nombre_bd);
         if ($_cn->errno) {

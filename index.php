@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Archivo index.php
  * 
@@ -32,17 +31,34 @@ if (!is_readable(KC_RAIZ . 'core/system/Vista.php')) {
 }
 require_once KC_RAIZ . 'core/system/Vista.php';
 
+if (!is_readable(KC_RAIZ . 'core/system/Bd.php')) {
+    die('Archivo del sistema no encontrado: core/system/Bd.php');
+}
+require_once KC_RAIZ . 'core/system/Bd.php';
+
+if (!is_readable(KC_RAIZ . 'core/system/Error.php')) {
+    die('Archivo del sistema no encontrado: core/system/Error.php');
+}
+require_once KC_RAIZ . 'core/system/Error.php';
+
+if (!is_readable(KC_RAIZ . 'core/system/Input.php')) {
+    die('Archivo del sistema no encontrado: core/system/Input.php');
+}
+require_once KC_RAIZ . 'core/system/Input.php';
+
 if (!is_readable(KC_RAIZ . 'app/Config.php')) {
     die('Archivo del sistema no encontrado: app/Config.php');
 }
 require_once KC_RAIZ . 'app/Config.php';
 
-if (!is_readable(KC_RAIZ . 'core/system/Lanzador.php')) {
-    die('Archivo del sistema no encontrado: core/system/Lanzador.php');
+if (!is_readable(KC_RAIZ . 'core/system/Ruteo.php')) {
+    die('Archivo del sistema no encontrado: core/system/Ruteo.php');
 }
-require_once KC_RAIZ . 'core/system/Lanzador.php';
+require_once KC_RAIZ . 'core/system/Ruteo.php';
 
-if (!Config::$produccion) {
+$cnf = Config::getInstancia();
+
+if (!$cnf->produccion) {
     ini_set('error_reporting', E_ALL | E_NOTICE | E_STRICT);
     ini_set('display_errors', '1');
     ini_set('track_errors', 'On');
@@ -50,6 +66,24 @@ if (!Config::$produccion) {
     ini_set('display_errors', '0');
 }
 
-$objLanz = new Lanzador();
-$objLanz->resolver();
+
+//$objLanz = Lanzador::getInstancia();
+//$objLanz->resolver();
+
+$i = Input::getInstancia();
+
+echo '<pre>';
+print_r($i->copia);
+echo '</pre>';
+if (isset($i->copia['post'])) {
+    var_dump($i->evaluaTexto('nombre', 'post', array(1,0)));
+}
+?>
+<form method="post">
+    <input type="text" name="nombre" ><br>
+    <input type="submit" value="Enviar">
+    <textarea><?php echo $i->limpio['post']['nombre'] ?></textarea>
+    <code><?php echo var_dump($i->limpio['post']['nombre']) ?></code>
+
+</form>
 
