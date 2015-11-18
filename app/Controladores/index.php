@@ -16,6 +16,7 @@ class indexCtld extends Controlador {
     }
 
     public function index() {
+        $this->getLib('hola');
         $this->vista->genParcial('index/index');
     }
 

@@ -24,10 +24,10 @@ class Error {
      */
     private static function log($mensaje) {
         $_nombre = date('d-m-Y') . '_' . substr(md5(date('dYm')), 22) . '.txt';
-        $gestor = fopen(Cnt::$dir_raiz . 'app/log/' . $_nombre, 'a');
+        $gestor = fopen(Cnt::$dir_raiz . 'log/' . $_nombre, 'a');
         if ($gestor) {
             fwrite($gestor, date('H:i:s') . '#;');
-            fwrite($gestor, Cnt::$url_admin . Ruteo::$url . '#;');
+            fwrite($gestor, Cnt::$sufijo_url . Ruteo::$url . '#;');
             fwrite($gestor, $mensaje . '#; ' . PHP_EOL);
             fclose($gestor);
         }

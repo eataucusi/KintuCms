@@ -34,19 +34,30 @@ class Cnt {
     /**
      * @var string Directorio admin
      */
-    public static $url_admin = '';
+    public static $sufijo_url = '';
 
     /**
      * Inicializa las variables directorio raíz y de ejecución
-     * 
-     * Método que fija las variables directorio raíz y directorios de ejecución
      * @param string $raiz Directorio raíz de la aplicación
      * @param string $ejec Directorio de ejecución la aplicación
      */
-    public static function fijar($raiz, $ejec, $admin = '') {
+    public static function fijar($raiz, $ejec, $sufijo_url = '') {
         self::$dir_raiz = $raiz;
         self::$dir_ejec = $raiz . $ejec;
-        self::$url_admin = $admin;
+        self::$sufijo_url = $sufijo_url;
+    }
+
+    /**
+     * Muestra información de una variable
+     * @param mixed $var Variable
+     */
+    public static function info($var) {
+        var_dump($var);
+        exit(0);
+    }
+
+    public static function br() {
+        return '<br>';
     }
 
 }

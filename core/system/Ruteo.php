@@ -138,7 +138,7 @@ class Ruteo {
         if (!is_readable($_ruta)) {
             throw new Exception('Archivo del sistema no encontrado: core/Controladores/error.php');
         }
-        require_once $_ruta;
+        require $_ruta;
         if (!class_exists('errorCtld')) {
             throw new Exception('Clase errorCtld no encontrado: core/Controladores/error.php');
         }

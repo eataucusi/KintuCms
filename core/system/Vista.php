@@ -76,7 +76,7 @@ class Vista {
             }
         }
         $region['reg_cuerpo'] = $this->genRetornar($vista, $data);
-        require_once Cnt::$dir_vista . '_plantilla/plantilla.phtml';
+        require Cnt::$dir_vista . '_plantilla/plantilla.phtml';
     }
 
     /**
@@ -92,7 +92,7 @@ class Vista {
             Error::mostrar('No existe esta vista', 'detalle de no existe vista');
         }
         extract($data);
-        require_once $_ruta;
+        require $_ruta;
     }
 
     /**
