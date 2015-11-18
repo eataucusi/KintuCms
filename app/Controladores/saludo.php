@@ -1,6 +1,6 @@
 <?php
 
-class indexCtld extends Controlador {
+class saludoCtld extends Controlador {
 
     protected static $_instancia;
 
@@ -32,13 +32,8 @@ class indexCtld extends Controlador {
         return $this->vista->genRetornar('index/pie');
     }
 
-    public function pagina() {
-
-        $this->vista->setPorcion('index/header', 'reg_cabeza');
-        $this->vista->setPorcion('index/pie', 'reg_pie');
-        $this->vista->setPorcion('saludo/derechos/ediar', 'reg_pie');
-        $this->vista->setPorcion('index/menu', 'reg_menu');
-        $this->vista->generar('index/pagina');
+    public function derechos($target) {
+        return $this->vista->genRetornar('index/derechos', array('target' => $target));
     }
 
 }

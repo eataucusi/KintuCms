@@ -1,13 +1,27 @@
 <?php
 
-class errorController extends Controller {
+class errorCtld extends Controlador {
 
-    public function __construct() {
-        parent::__construct();
+    protected static $_instancia;
+
+    private function __construct() {
+        $this->vista = Vista::getInstancia();
+    }
+
+    public static function getInstancia() {
+        if (!self::$_instancia) {
+            self::$_instancia = new self();
+        }
+        return self::$_instancia;
     }
 
     public function index() {
-        $this->view->render('error');
+        $this->vista->genParcial('error');
+    }
+
+    public function mostrar($mensaje, $detalle) {
+        $this->vista->genParcial('error', array('mensaje' => $mensaje, 'detalle' => $detalle));
+        exit();
     }
 
 }

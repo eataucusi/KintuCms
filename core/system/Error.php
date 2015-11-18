@@ -1,48 +1,58 @@
 <?php
 
 /**
- * Archivo Error.php
+ * Archivo ccore/system/Error.php
  * 
- * Este archivo define la clase Error.
- * 
- * @license http://licencia licencia
+ * @copyright (c) 2015, KintuCms
  * @author Edison Ataucusi R. <eataucusi@gmail.com>
- * @version 1.0 18/06/2015 21:48:00 
+ * @license http://creativecommons.org/licenses/by-nc-sa/4.0/ CC BY-NC-SA 4.0
  */
 
 /**
- * Clase Error
+ * Administra los errores
  * 
- * Clase que gestiona (registra en logs) los errores
+ * Esta clase proporciona atributos y métodos que ayudan a manejar a los
+ * errores de la aplicación 
  */
 class Error {
 
     /**
+     * Escribe un mensaje de error
      * 
-     * @param type $mensaje
+     * Método que escribe un mensaje en un archivo de la carpeta app/log/ 
+     * @param string $mensaje Mensaje de error
      */
-    public static function escribir($mensaje) {
+    private static function log($mensaje) {
         $_nombre = date('d-m-Y') . '_' . substr(md5(date('dYm')), 22) . '.txt';
-        $gestor = fopen(KC_RAIZ . 'app/log/' . $_nombre, 'a');
+        $gestor = fopen(Cnt::$dir_raiz . 'app/log/' . $_nombre, 'a');
         if ($gestor) {
             fwrite($gestor, date('H:i:s') . '#;');
-            fwrite($gestor, RUTA . ADMIN . Uri::$url . '#;');
-            fwrite($gestor, $mensaje . '#; ');
-            fwrite($gestor, Sesion::get('login') . PHP_EOL);
+            fwrite($gestor, Cnt::$url_admin . Ruteo::$url . '#;');
+            fwrite($gestor, $mensaje . '#; ' . PHP_EOL);
             fclose($gestor);
         }
     }
 
     /**
-     * Registra los errores y muestra el error
-     * @param string $mensaje ddescripción del error
+     * Muestra una página de error con detalles del error
+     * 
+     * Método que escribe el log y ejecuta el método error de Ruteo
+     * @param string $mensaje Mensaje corto
+     * @param string $detalle Mensaje detallado
      */
-    public static function manejo($mensaje, $detalle) {
-        define('ES_ERROR', TRUE);
-        self::escribir($mensaje);
-        Route::error($mensaje, $detalle);
+    public static function mostrar($mensaje, $detalle) {
+        self::log($mensaje);
+        $ruta = Ruteo::getInstancia();
+        $ruta->error($mensaje, $detalle);
     }
 
+    /**
+     * Muestra errores de MySQL
+     * 
+     * Método que maneja los errores de MySQL
+     * @param int $codigo
+     * @param string $detalle
+     */
     public static function mysql($codigo, $detalle) {
         $_error = array(
             '2002' => 'No se pudo conectar con el servidor MySQL, error en constante "DB_HOST"',
@@ -55,15 +65,10 @@ class Error {
             '1054' => 'Error de MySQL, columna no existente',
             '1136' => 'Error de MySQL, no hay correspondencia en numero de columnas');
         if (key_exists($codigo, $_error)) {
-            self::manejo($codigo . ': ' . $_error[$codigo], $detalle);
+            self::mostrar($_error[$codigo], $detalle);
         } else {
-            self::manejo($codigo . ': Se ha producido un error de MySQL', $detalle);
+            self::mostrar('Error de MySQL: ' . $codigo, $detalle);
         }
-    }
-
-    public static function oops($nombre) {
-        echo $nombre;
-        exit();
     }
 
 }

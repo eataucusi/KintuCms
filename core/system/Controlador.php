@@ -7,9 +7,10 @@ abstract class Controlador {
      */
     protected $vista;
 
-    public function __construct() {
-        $this->vista = new Vista();
+    abstract public function index();
+
+    protected function has($accion) {
+        echo 'has ' . $accion;
     }
 
-    abstract public function index();
 }
