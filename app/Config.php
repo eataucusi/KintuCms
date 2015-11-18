@@ -108,6 +108,6 @@ class Config {
         'contacto' => 'index/pagina',
         'inicio' => 'index/index'
     );
-    public static $regiones = array('reg_cabeza', 'reg_menu', 'reg_cuerpo', 'reg_pie');
+    public static $region = array('reg_cabeza', 'reg_menu', 'reg_cuerpo', 'reg_pie');
 
 }

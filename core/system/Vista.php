@@ -29,6 +29,10 @@ class Vista {
      * @var string Meta descripción de la página
      */
     public $meta;
+
+    /**
+     * @var array Arreglo que almacena las regiones de la plantilla  
+     */
     private $_region;
 
     private function __construct() {
@@ -117,7 +121,7 @@ class Vista {
      * @param string $region Nombre de la región de la vista
      */
     public function setPorcion($ruta, $region) {
-        if (array_search($region, Config::$regiones) === FALSE) {
+        if (array_search($region, Config::$region) === FALSE) {
             Error::mostrar('No existe región ' . $region, 'dte no existe la region');
         }
         $this->_region[$region][] = $ruta;
