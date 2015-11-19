@@ -21,7 +21,6 @@ class errorCtld extends Controlador {
 
     public function mostrar($mensaje, $detalle) {
         $this->vista->genParcial('error', array('mensaje' => $mensaje, 'detalle' => $detalle));
-        exit();
     }
 
 }

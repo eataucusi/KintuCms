@@ -50,6 +50,11 @@ class Config {
     public static $registros = 10;
 
     /**
+     * @var int Minutos en el que expira una sesión 
+     */
+    public static $sesion = 60;
+
+    /**
      * @var string Cadena obtenida aleatoriamente para la generación de
      * contraseñas y otros datos de seguridad
      */

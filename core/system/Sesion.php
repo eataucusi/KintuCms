@@ -1,24 +1,23 @@
 <?php
 
 /**
- * Archivo Sesion.php
+ * Archivo core/system/Sesion.php
  * 
- * Este archivo define la clase Sesion.
- * 
- * @license http://licencia licencia
+ * @copyright (c) 2015, KintuCms
  * @author Edison Ataucusi R. <eataucusi@gmail.com>
- * @version 1.0 13/06/2015 21:48:00 
+ * @license http://creativecommons.org/licenses/by-nc-sa/4.0/ CC BY-NC-SA 4.0
  */
 
 /**
- * Clase Sesion
+ * Gestiona las sesiones
  * 
- * Esta clase maneja las sesiones de la aplicación.
+ * Esta clase proporciona métodos que ayudan a almacenar y recuperar información
+ * de la variable $_SESSION
  */
 class Sesion {
 
     /**
-     * Metodo que inicia una Sesion
+     * Inicia la sesión
      */
     public static function iniciar() {
         session_start();
@@ -26,59 +25,77 @@ class Sesion {
     }
 
     /**
-     * Metodo que elimina una variable de sesion o elimina la sesion
-     * @param string $clave variable de sesion
+     * Elimina y destruye la sesión
      */
-    public static function matar($clave = FALSE) {
-        if ($clave) {
-            unset($_SESSION[ID_APP . '_' . $clave]);
-        } else {
-            unset($_SESSION);
-            session_destroy();
-        }
+    public static function apagar() {
+        unset($_SESSION);
+        session_destroy();
     }
 
     /**
-     * Metodo que guarda una variable en la sesion
-     * @param type $clave
-     * @param type $valor
+     * Almacena una variable en la sesión
+     * @param string $clave Nombre de variable
+     * @param mixed $valor Valor a almacenar
      */
-    public static function set($clave, $valor) {
-        if (!empty(ID_APP . '_' . $clave)) {
-            $_SESSION[ID_APP . '_' . $clave] = $valor;
-        }
+    public static function poner($clave, $valor) {
+        $_SESSION[Config::$id . '_' . $clave] = $valor;
     }
 
     /**
-     * Metodo que obtiene una variable almacenada en la sesion
-     * @param type $clave
-     * @return string
+     * Obtiene una variable almacenada en la sesión
+     * @param string $clave Nombre de variable
+     * @return mixed Variable almacenada
      */
-    public static function get($clave) {
-        if (isset($_SESSION[ID_APP . '_' . $clave])) {
-            return $_SESSION[ID_APP . '_' . $clave];
+    public static function traer($clave) {
+        if (isset($_SESSION[Config::$id . '_' . $clave])) {
+            return $_SESSION[Config::$id . '_' . $clave];
         }
-        return '';
+        Error::mostrar('Acceso a un índice inexistente en de la sesión', $clave . ' no existe en la sesión');
     }
 
     /**
-     * Método que regenera la sesion
+     * Elimina una variable almacenada en la sesión
+     * @param string $clave Nombre de variable
+     */
+    public static function quitar($clave) {
+        unset($_SESSION[Config::$id . '_' . $clave]);
+    }
+
+    /**
+     * Obtiene y elimina una variable almacenada en la sesión
+     * @param string $clave Nombre de variable
+     * @return mixed Variable almacenada
+     */
+    public static function traerQuitar($clave) {
+        $_valor = self::traer($clave);
+        self::quitar($clave);
+        return $_valor;
+    }
+
+    /**
+     * Inicia el control de tiempo de sesión
+     */
+    public static function iniciarTiempo() {
+        $_SESSION[Config::$id . '__tiempo'] = time();
+    }
+
+    /**
+     * Regenera la id de la sesión
      */
     public static function regenerar() {
         session_regenerate_id(TRUE);
     }
 
     /**
-     * Método que maneja el tiempo de sesion
+     * Método que maneja el tiempo de sesión
      */
-    public static function tiempo() {
-        if (Sesion::get(ID_APP . '_logueado')) {
-            if (time() - Sesion::get(ID_APP . '_tiempo') > (TIEMPO_SESION * 60)) {
-                Sesion::matar();
-                header('location: ' . URL_BASE . 'traspie/acceso/403');
-                exit(0);
+    private static function tiempo() {
+        if (isset($_SESSION[Config::$id . '__tiempo'])) {
+            if (time() - $_SESSION[Config::$id . '__tiempo'] > Config::$sesion * 60) {
+                self::apagar();
+                Error::mostrar('Tiempo de sesión expirada', 'El tiempo de sesión ha expirado');
             }
-            Sesion::set(ID_APP . '_tiempo', time());
+            $_SESSION[Config::$id . '__tiempo'] = time();
         }
     }
 
