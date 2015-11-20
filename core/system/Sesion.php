@@ -50,7 +50,7 @@ class Sesion {
         if (isset($_SESSION[Config::$id . '_' . $clave])) {
             return $_SESSION[Config::$id . '_' . $clave];
         }
-        Error::mostrar('Acceso a un índice inexistente en de la sesión', $clave . ' no existe en la sesión');
+        Error::mostrar('Acceso a un índice inexistente en de la sesión', '"' . $clave . '" no existe en la sesión', FALSE);
     }
 
     /**
@@ -93,7 +93,7 @@ class Sesion {
         if (isset($_SESSION[Config::$id . '__tiempo'])) {
             if (time() - $_SESSION[Config::$id . '__tiempo'] > Config::$sesion * 60) {
                 self::apagar();
-                Error::mostrar('Tiempo de sesión expirada', 'El tiempo de sesión ha expirado');
+                Error::mostrar('Tiempo de sesión expirada', 'El tiempo de sesión ha expirado', FALSE);
             }
             $_SESSION[Config::$id . '__tiempo'] = time();
         }

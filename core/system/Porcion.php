@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Archivo ccore/system/Porcion.php
+ * Archivo core/system/Porcion.php
  * 
  * @copyright (c) 2015, KintuCms
  * @author Edison Ataucusi R. <eataucusi@gmail.com>
@@ -38,16 +38,16 @@ class Porcion {
         $_args = $_aux;
         $_ruta = Cnt::$dir_ejec . 'Controladores/' . $_contro . '.php';
         if (!is_readable($_ruta)) {
-            Error::mostrar('mnesa', 'deta');
+            Error::mostrar('Archivo de controlador "' . $_contro . '" no existe', 'El archivo ' . $_ruta . ' no existe');
         }
         require_once $_ruta;
         $_clase = $_contro . 'Ctld';
         if (!class_exists($_clase, FALSE)) {
-            Error::mostrar('mnesa', 'deta');
+            Error::mostrar('Controlador "' . $_contro . '" no definido', 'Clase no definida en ' . $_ruta);
         }
         $_ctld = $_clase::getInstancia();
         if (!is_callable(array($_ctld, $_metodo))) {
-            Error::mostrar('mnesa', 'deta');
+            Error::mostrar('Método "' . $_metodo . '" no encontrado', 'Método no existe en ' . $_ruta);
         }
         return call_user_func_array(array($_ctld, $_metodo), $_args);
     }

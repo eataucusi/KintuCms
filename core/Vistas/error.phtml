@@ -1,42 +1,48 @@
-<?php
-/* @var $this Vista */
-?>
+<?php /* @var $this Vista */ ?>
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Pagina principal</title>
+        <title><?php echo $this->titulo ?></title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="<?php echo $this->meta ?>">
+        <base href="<?php echo Config::$url ?>">
+        <link type="text/css" href='publico/core/css/estilos.css' rel="stylesheet">
     </head>
     <body>
-        <div class="error_titulo">
-            <img src="<?php echo Config::$url ?>publico/core/img/alerta.png" alt="alerta de kintucms">
-            ¡Oops ha ocurrido un error!
+        <div>
+            <h1><a href="<?php Config::$url ?>">Rutas</a></h1>
         </div>
-        <?php if (!Config::$produccion) : ?>
-            <div class="error_cuerpo">
-                <fieldset>
-                    <legend>Resumen</legend>
-                    <p><?php echo $mensaje ?></p>
-                </fieldset>
-                <fieldset>
-                    <legend>Detalle de error</legend>
-                    <table border="1">
-                        <tr>
-                            <td><span>Url solicitada</span></td>
-                            <td><?php echo Config::$url . Cnt::$sufijo_url . htmlspecialchars(Ruteo::$url) ?></td>
-                        </tr>
-                        <tr>
-                            <td><span>Información</span></td>
-                            <td><?php echo $detalle ?></td>
-                        </tr>
-                    </table>
-                </fieldset>
+        <div class="error">
+            <div class="error_titulo">
+                <img src="<?php echo Config::$url ?>publico/core/img/alerta.png" alt="alerta de kintucms">
+                <h2>Oops ha ocurrido un error</h2>
             </div>
-        <?php else: ?>
-            <div class="error_cuerpo">
-                <p><?php echo $this->config->error ?></p>
-            </div>
-        <?php endif; ?>
+            <?php if (!Config::$produccion) : ?>
+                <div class="error_cuerpo">
+                    <fieldset>
+                        <legend>Resumen</legend>
+                        <p><?php echo $mensaje ?></p>
+                    </fieldset>
+                    <fieldset>
+                        <legend>Detalle de error</legend>
+                        <table>
+                            <tr>
+                                <td><span>Url solicitada</span></td>
+                                <td><?php echo Config::$url . Cnt::$sufijo_url . htmlspecialchars(Ruteo::$url) ?></td>
+                            </tr>
+                            <tr>
+                                <td><span>Información</span></td>
+                                <td><?php echo $detalle ?></td>
+                            </tr>
+                        </table>
+                    </fieldset>
+                </div>
+            <?php else: ?>
+                <div class="error_cuerpo">
+                    <p><?php echo $this->config->error ?></p>
+                </div>
+            <?php endif; ?>
+        </div>
     </body>
 </html>

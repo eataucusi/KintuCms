@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Archivo ccore/system/Ruteo.php
+ * Archivo core/system/Ruteo.php
  * 
  * @copyright (c) 2015, KintuCms
  * @author Edison Ataucusi R. <eataucusi@gmail.com>
@@ -110,18 +110,18 @@ class Ruteo {
         $this->buscarAlias();
         $_ruta = Cnt::$dir_ejec . 'Controladores/' . $this->contro . '.php';
         if (!is_readable($_ruta)) {
-            Error::mostrar('Archivo de controlador no existe', 'El archivo ' . $_ruta . ' no existe');
+            Error::mostrar('Archivo de controlador "' . $this->contro . '" no existe', 'El archivo ' . $_ruta . ' no existe');
         }
         require_once $_ruta;
         $_clase = $this->contro . 'Ctld';
         if (!class_exists($_clase, FALSE)) {
-            Error::mostrar('Controlador ' . $_clase . ' no definido', 'Clase no definida en ' . $_ruta);
+            Error::mostrar('Controlador "' . $_clase . '" no definido', 'Clase no definida en ' . $_ruta);
         }
         $_contro = $_clase::getInstancia();
         if (!method_exists($_contro, $this->metodo)) {
-            Error::mostrar('Método ' . $this->metodo . ' no encontrado', 'Método no existe en ' . $_ruta);
+            Error::mostrar('Método "' . $this->metodo . '" no encontrado', 'Método no existe en ' . $_ruta);
         }
-        Cnt::$dir_vista = Cnt::$dir_ejec . 'Vistas/';
+        Cnt::setDirVista(Cnt::$dir_ejec . 'Vistas/');
         call_user_func_array(array($_contro, $this->metodo), $this->args);
     }
 
@@ -146,7 +146,7 @@ class Ruteo {
         if (!method_exists($_contro, 'mostrar')) {
             throw new Exception('Método mostrar no encontrado: core/Controladores/error.php');
         }
-        Cnt::$dir_vista = Cnt::$dir_raiz . 'core/Vistas/';
+        Cnt::setDirVista(Cnt::$dir_raiz . 'core/Vistas/');
         $_contro->mostrar($mensaje, $detalle);
         exit(0);
     }

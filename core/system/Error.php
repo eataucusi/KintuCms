@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Archivo ccore/system/Error.php
+ * Archivo core/system/Error.php
  * 
  * @copyright (c) 2015, KintuCms
  * @author Edison Ataucusi R. <eataucusi@gmail.com>
@@ -39,9 +39,12 @@ class Error {
      * Método que escribe el log y ejecuta el método error de Ruteo
      * @param string $mensaje Mensaje corto
      * @param string $detalle Mensaje detallado
+     * @param bool $log Bandera de si se escribe o no el log
      */
-    public static function mostrar($mensaje, $detalle) {
-        self::log($mensaje);
+    public static function mostrar($mensaje, $detalle, $log = TRUE) {
+        if ($log) {
+            self::log($mensaje);
+        }
         $ruta = Ruteo::getInstancia();
         $ruta->error($mensaje, $detalle);
     }
@@ -55,11 +58,11 @@ class Error {
      */
     public static function mysql($codigo, $detalle) {
         $_error = array(
-            '2002' => 'No se pudo conectar con el servidor MySQL, error en constante "DB_HOST"',
-            '2005' => 'No se pudo conectar con el servidor MySQL, error en constante "DB_HOST"',
-            '1044' => 'Acceso denegado a MySQL, error en constante "DB_USER"',
-            '1045' => 'Acceso denegado a MySQL, error en constante "DB_PASS"',
-            '1049' => 'La base de datos no existe en MySQL, error en constante "DB_NAME"',
+            '2002' => 'No se pudo conectar con el servidor MySQL, error de la variable Config::$user_bd',
+            '2005' => 'No se pudo conectar con el servidor MySQL, error de la variable Config::$host_bd',
+            '1044' => 'Acceso denegado a MySQL, error en variable Config::$user_bd',
+            '1045' => 'Acceso denegado a MySQL, error en variable Config::$pass_bd',
+            '1049' => 'La base de datos no existe en MySQL, error en variable Config::$name_bd',
             '1064' => 'Error de sintaxis MySQL, compruebe su consulta',
             '1146' => 'Error de sintaxis MySQL, la tabla no existe',
             '1054' => 'Error de MySQL, columna no existente',

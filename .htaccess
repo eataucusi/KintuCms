@@ -3,6 +3,6 @@ RewriteCond %{REQUEST_URI} ^.*/publico/.*$
 RewriteCond %{REQUEST_FILENAME} -f
 RewriteRule (.+) $1 [QSA,END]
 RewriteCond %{REQUEST_URI} ^.*/admin/.*$
-RewriteRule ^admin/(.*)$ app/index.php?url=$1 [QSA,END]
+RewriteRule ^admin/(.*)$ app/admin/index.php?url=$1 [QSA,END]
 RewriteCond %{REQUEST_URI} !index.php
 RewriteRule (.+) index.php?url=$1 [QSA,END]

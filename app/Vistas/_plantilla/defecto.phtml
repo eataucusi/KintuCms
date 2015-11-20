@@ -1,0 +1,31 @@
+<?php /* @var $this Vista */ ?>
+<!DOCTYPE html>
+<html>
+    <head>
+        <title><?php echo $this->titulo ?></title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="<?php echo $this->meta ?>">
+        <base href="<?php echo Config::$url ?>">
+        <link type="text/css" href='publico/core/css/estilos.css' rel="stylesheet">
+        <link type="text/css" href='<?php echo Cnt::$url_plan ?>css/estilos.css' rel="stylesheet">
+        <script type="text/javascript" src="publico/core/js/jquery-1.11.2.min.js"></script>
+        <?php for ($i = 0; $i < count($this->js); $i++) : ?>
+            <script type="text/javascript" src="<?php echo $this->js[$i] ?>"></script>
+        <?php endfor; ?>
+    </head>
+    <body>
+        <div>
+            <?php echo $region['reg_cabeza'] ?>
+        </div>
+        <div>
+            <?php echo $region['reg_menu'] ?>
+        </div>
+        <div>
+            <?php echo $region['reg_cuerpo'] ?>
+        </div>
+        <div>
+            <?php echo $region['reg_pie'] ?>
+        </div>
+    </body>
+</html>

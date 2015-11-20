@@ -9,7 +9,7 @@
  * @license http://creativecommons.org/licenses/by-nc-sa/4.0/ CC BY-NC-SA 4.0
  */
 try {
-    $dir_raiz = realpath(__DIR__) . '/';
+    $dir_raiz = realpath(__DIR__ . '/../../') . '/';
 
     if (!is_readable($dir_raiz . 'core/system/Cnt.php')) {
         throw new Exception('Archivo del sistema no encontrado: core/system/Cnt.php');
@@ -17,7 +17,7 @@ try {
     require $dir_raiz . 'core/system/Cnt.php';
 
 
-    Cnt::fijar($dir_raiz, 'app/');
+    Cnt::fijar($dir_raiz, 'app/admin/', 'admin/');
 
     if (!is_readable($dir_raiz . 'core/system/Principal.php')) {
         throw new Exception('Archivo del sistema no encontrado: core/system/Principal.php');

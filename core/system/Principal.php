@@ -94,7 +94,6 @@ require Cnt::$dir_raiz . 'app/Config.php';
 if (!Config::$produccion) {
     ini_set('error_reporting', E_ALL | E_NOTICE | E_STRICT);
     ini_set('display_errors', '1');
-    ini_set('track_errors', 'On');
 } else {
     ini_set('display_errors', '0');
 }
@@ -104,4 +103,6 @@ if (!Config::$produccion) {
  */
 $ruteo = Ruteo::getInstancia();
 $ruteo->resolver();
+
+
 

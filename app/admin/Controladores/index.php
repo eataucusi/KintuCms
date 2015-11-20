@@ -40,7 +40,7 @@ class indexCtld extends Controlador {
      * Método principal
      */
     public function index() {
-        $this->vista->generar('index/index');
+        $this->vista->generar('index');
     }
 
 }

@@ -9,7 +9,10 @@
  */
 
 /**
+ * Gestiona la configuración de la aplicación
  * 
+ * Esta clase proporciona atributos y métodos que ayudan a almacenar y recuperar
+ * datos de configuración de la aplicación
  */
 class Config {
     /**
@@ -50,6 +53,11 @@ class Config {
     public static $registros = 10;
 
     /**
+     * @var string Plantilla por defecto para la parte frontal
+     */
+    public static $plantilla = 'defecto';
+
+    /**
      * @var int Minutos en el que expira una sesión 
      */
     public static $sesion = 60;
@@ -86,17 +94,17 @@ class Config {
     /**
      * @var string Nombre de usuario de la base de datos MySQL 
      */
-    public static $user_bd = 'roo';
+    public static $user_bd = 'root';
 
     /**
      * @var string Contraseña del usuario de la base de datos MySQL 
      */
-    public static $pass_bd = '';
+    public static $pass_bd = '..';
 
     /**
      * @var string Nombre de la base de datos MySQL 
      */
-    public static $name_bd = '';
+    public static $name_bd = 'medic';
 
     /**
      * -------------------------------------------------------------------------
@@ -113,6 +121,10 @@ class Config {
         'contacto' => 'index/pagina',
         'inicio' => 'index/index'
     );
+
+    /**
+     * @var array Arreglo que almacena las regiones de la plantilla
+     */
     public static $region = array('reg_cabeza', 'reg_menu', 'reg_cuerpo', 'reg_pie');
 
 }
